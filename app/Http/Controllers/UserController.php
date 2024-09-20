@@ -34,8 +34,54 @@ class UserController extends Controller
         // $user = UserModel::where('level_id', 1)->firstOrFail();
         // return view('user', ['data' => $user]);
 
-        $user = UserModel::where('level_id', 2)->count();
-        return view('user', ['data' => $user]);
+        // $user = UserModel::where('level_id', 2)->count();
+        // return view('user', ['data' => $user]);
 
+        // $user = UserModel::firstOrCreate(
+        //     [
+        //         'username' => 'manager',
+        //         'nama' => 'pelanggan pertama',
+        //     ],
+        // );
+        // return view('user', ['data' => $user]);
+
+        // $user = UserModel::firstOrCreate(
+        //     [
+        //         'username' => 'manager22',
+        //         'nama' => 'Manager dua dua',
+        //         'password' => Hash::make('12345'),
+        //         'level_id' => 2
+        //     ],
+        // );
+        // return view('user', ['data' => $user]);
+
+        // $user = UserModel::firstOrNew(
+        //     [
+        //         'username' => 'manager',
+        //         'nama' => 'pelanggan pertama',
+        //     ],
+        // );
+        // return view('user', ['data' => $user]);
+
+        // $user = UserModel::firstOrNew(
+        //     [
+        //         'username' => 'manager33',
+        //         'nama' => 'pelanggan Tiga Tiga',
+        //         'password' => Hash::make('12345'),
+        //         'level_id' => 2
+        //     ],
+        // );
+        // return view('user', ['data' => $user]);
+
+        $user = UserModel::firstOrNew(
+            [
+                'username' => 'manager33',
+                'nama' => 'pelanggan Tiga Tiga',
+                'password' => Hash::make('12345'),
+                'level_id' => 2
+            ],
+        );
+        $user->save();
+        return view('user', ['data' => $user]);
     }
 }
