@@ -34,7 +34,8 @@ class UserController extends Controller
         // $user = UserModel::where('level_id', 1)->firstOrFail();
         // return view('user', ['data' => $user]);
 
-        
+        $user = UserModel::where('level_id', 2)->count();
+        return view('user', ['data' => $user]);
 
     }
 }
