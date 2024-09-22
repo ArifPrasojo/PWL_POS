@@ -6,64 +6,107 @@
     <title>Data Level Pengguna</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             line-height: 1.6;
             color: #333;
-            max-width: 800px;
+            max-width: 1000px;
             margin: 0 auto;
             padding: 20px;
-            background-color: #f4f4f4;
+            background-color: #e9ecef;
         }
         h1 {
             color: #2c3e50;
             text-align: center;
             margin-bottom: 30px;
+            font-size: 2.5rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+        }
+        a {
+            text-decoration: none;
+            color: #3498db;
+            font-weight: bold;
+        }
+        a:hover {
+            color: #2980b9;
+            text-decoration: underline;
         }
         table {
             width: 100%;
             border-collapse: collapse;
-            background-color: white;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            margin-top: 20px;
+            border-radius: 10px;
+            overflow: hidden;
         }
         th, td {
-            padding: 12px;
+            padding: 15px;
             text-align: left;
             border-bottom: 1px solid #ddd;
         }
         th {
-            background-color: #3498db;
+            background-color: #1abc9c;
             color: white;
             font-weight: bold;
             text-transform: uppercase;
         }
-        tr:hover {
-            background-color: #f5f5f5;
+        td {
+            font-size: 1rem;
         }
         tr:nth-child(even) {
-            background-color: #f2f2f2;
+            background-color: #f9f9f9;
+        }
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+        .button-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        .button-container a {
+            background-color: #3498db;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+        .button-container a:hover {
+            background-color: #2980b9;
         }
     </style>
 </head>
 <body>
     <h1>Data Pengguna</h1>
-    <table border="1" cellpadding="2" cellpadding="0">
+
+    <div class="button-container">
+        <a href="{{url('/user/tambah')}}">Tambah User</a>
+    </div>
+
+    <table>
         <thead>
             <tr>
-                {{-- <th>Jumlah Pengguna</th> --}}
                 <th>ID</th>
                 <th>Username</th>
                 <th>Nama</th>
                 <th>ID Level Pengguna</th>
+                <th>Aksi</th>
             </tr>
         </thead>
         <tbody>
-                <tr>
-                    {{-- <td>{{$data}}</td> --}}
-                    <td>{{ $data->user_id }}</td>
-                    <td>{{ $data->username }}</td>
-                    <td>{{ $data->nama }}</td>
-                    <td>{{ $data->level_id }}</td>
-                </tr>
+        @foreach ($data as $d)
+            <tr>
+                <td>{{ $d->user_id }}</td>
+                <td>{{ $d->username }}</td>
+                <td>{{ $d->nama }}</td>
+                <td>{{ $d->level_id }}</td>
+                <td>
+                    <a href="{{ url('/user/ubah/' . $d->user_id) }}">Ubah</a> | 
+                    <a href="{{ url('/user/hapus/' . $d->user_id) }}" onclick="return confirm('Apakah Anda yakin ingin menghapus pengguna ini?')">Hapus</a>
+                </td>
+            </tr>
+        @endforeach
         </tbody>
     </table>
 </body>
