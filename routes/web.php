@@ -77,9 +77,16 @@ Route::group(['prefix' =>'kategori'],function(){
     Route::post('/list',[BarangController::class, 'list']);
     Route::get('/create',[BarangController::class,'create']);
     Route::post('/',[BarangController::class,'store']);
+    Route::get('/create_ajax', [BarangController::class, 'create_ajax']); // Menampilkan halaman form tambah barang Ajax
+    Route::post('/ajax', [BarangController::class, 'store_ajax']); // Menampilkan data barang baru Ajax
     Route::get('/{id}',[BarangController::class,'show']);
+    Route::get('/{id}/show_ajax', [BarangController::class, 'show_ajax']);
     Route::get('/{id}/edit',[BarangController::class,'edit']);
     Route::put('/{id}',[BarangController::class,'update']);
+    Route::get('/{id}/edit_ajax', [BarangController::class, 'edit_ajax']); // Menampilkan halaman form edit barang Ajax
+    Route::put('/{id}/update_ajax', [BarangController::class, 'update_ajax']); // Menyimpan perubahan data barang Ajax
+    Route::get('/{id}/delete_ajax', [BarangController::class, 'confirm_ajax']); // Untuk tampilkan form confirm delete barang Ajax
+    Route::delete('/{id}/delete_ajax', [BarangController::class, 'delete_ajax']); // Untuk hapus data barang Ajax
     Route::delete('/{id}',[BarangController::class,'destroy']);
 });
 
@@ -89,9 +96,16 @@ Route::group(['prefix' =>'level'],function(){
     Route::post('/list',[LevelController::class, 'list']);
     Route::get('/create',[LevelController::class,'create']);
     Route::post('/',[LevelController::class,'store']);
+    Route::get('/create_ajax', [LevelController::class, 'create_ajax']); // Menampilkan halaman form tambah level Ajax
+    Route::post('/ajax', [LevelController::class, 'store_ajax']); // Menampilkan data level baru Ajax
     Route::get('/{id}',[LevelController::class,'show']);
+    Route::get('/{id}/show_ajax', [LevelController::class, 'show_ajax']); 
     Route::get('/{id}/edit',[LevelController::class,'edit']);
     Route::put('/{id}',[LevelController::class,'update']);
+    Route::get('/{id}/edit_ajax', [LevelController::class, 'edit_ajax']); // Menampilkan halaman form edit level Ajax
+    Route::put('/{id}/update_ajax', [LevelController::class, 'update_ajax']); // Menyimpan perubahan data level Ajax
+    Route::get('/{id}/delete_ajax', [LevelController::class, 'confirm_ajax']); // Untuk tampilkan form confirm delete level Ajax
+    Route::delete('/{id}/delete_ajax', [LevelController::class, 'delete_ajax']); // Untuk hapus data level Ajax
     Route::delete('/{id}',[LevelController::class,'destroy']);
 });
 
