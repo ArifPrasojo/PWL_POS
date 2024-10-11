@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Login Pengguna</title>
+    <title>Registrasi Pengguna</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <style>
@@ -114,11 +114,6 @@
             color: #0056b3;
             text-decoration: none;
         }
-        .error-text {
-            color: #dc3545;
-            font-size: 12px;
-            margin-top: 5px;
-        }
         @media (max-width: 576px) {
             .login-box {
                 padding: 10px;
@@ -136,54 +131,71 @@
                 <a href="{{ url('/') }}" class="h1"><b>Admin</b>LTE</a>
             </div>
             <div class="card-body">
-                <p class="login-box-msg">Sign in to start your session</p>
-                <form action="{{ url('login') }}" method="POST" id="form-login">
+                <p class="login-box-msg">Registrasi Pengguna Baru</p>
+                <form method="POST" action="{{ url('register') }}" id="form-register">
                     @csrf
                     <div class="input-group">
-                        <input type="text" id="username" name="username" class="form-control" placeholder="Username">
+                        <select class="form-control" id="level_id" name="level_id" required>
+                            <option value="">- Pilih Level -</option>
+                            @foreach ($level as $item)
+                                <option value="{{ $item->level_id }}">{{ $item->level_nama }}</option>
+                            @endforeach
+                        </select>
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-layer-group"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <input type="text" id="username" name="username" class="form-control" placeholder="Username" value="{{ old('username') }}" required>
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-user"></span>
                             </div>
                         </div>
                     </div>
-                    <small id="error-username" class="error-text"></small>
                     <div class="input-group">
-                        <input type="password" id="password" name="password" class="form-control" placeholder="Password">
+                        <input type="text" id="nama" name="nama" class="form-control" placeholder="Nama" value="{{ old('nama') }}" required>
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-id-card"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <input type="password" id="password" name="password" class="form-control" placeholder="Password" required>
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-lock"></span>
                             </div>
                         </div>
                     </div>
-                    <small id="error-password" class="error-text"></small>
-                    <div class="row mt-3">
-                        <div class="col-8">
-                            <div class="icheck-primary">
-                                <input type="checkbox" id="remember">
-                                <label for="remember">Remember Me</label>
-                            </div>
-                        </div>
-                        <div class="col-4">
-                            <button type="submit" class="btn btn-primary btn-block">Login</button>
-                        </div>
+                    <div class="icheck-primary">
+                        <input type="checkbox" id="agreeTerms" name="terms" value="agree">
+                        <label for="agreeTerms">
+                            Saya setuju dengan <a href="#">syarat dan ketentuan</a>
+                        </label>
                     </div>
+                    <button type="submit" class="btn btn-primary">Register</button>
                     <div class="text-center mt-3">
-                        <p>Belum punya akun? <a href="{{ url('register') }}">Registrasi</a></p>
+                        <p>Sudah punya akun? <a href="{{ url('login') }}">Login</a></p>
                     </div>
                 </form>
             </div>
         </div>
     </div>
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/additional-methods.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
         $(document).ready(function() {
-            $("#form-login").validate({
+            $("#form-register").validate({
                 rules: {
+                    level_id: {
+                        required: true,
+                    },
                     username: {
                         required: true,
                         minlength: 4,
@@ -191,32 +203,8 @@
                     },
                     password: {
                         required: true,
-                        minlength: 6,
-                        maxlength: 20
+                        minlength: 5,
                     }
-                },
-                messages: {
-                    username: {
-                        required: "Username is required",
-                        minlength: "Username must be at least 4 characters",
-                        maxlength: "Username cannot exceed 20 characters"
-                    },
-                    password: {
-                        required: "Password is required",
-                        minlength: "Password must be at least 6 characters",
-                        maxlength: "Password cannot exceed 20 characters"
-                    }
-                },
-                errorElement: 'small',
-                errorPlacement: function(error, element) {
-                    error.addClass('error-text');
-                    error.insertAfter(element.closest('.input-group'));
-                },
-                highlight: function(element) {
-                    $(element).addClass('is-invalid');
-                },
-                unhighlight: function(element) {
-                    $(element).removeClass('is-invalid');
                 },
                 submitHandler: function(form) {
                     $.ajax({
@@ -233,10 +221,6 @@
                                     window.location = response.redirect;
                                 });
                             } else {
-                                $('.error-text').text('');
-                                $.each(response.msgField, function(prefix, val) {
-                                    $('#error-' + prefix).text(val[0]);
-                                });
                                 Swal.fire({
                                     icon: 'error',
                                     title: 'Terjadi Kesalahan',
