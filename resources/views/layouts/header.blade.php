@@ -36,7 +36,7 @@
 
       <li class="nav-item dropdown">
         <a class="nav-link" href="#" onclick="logout()">
-          <i class="fa fa-sign-out-alt" aria-hidden="true"></i>
+          <i class="fa fa-sign-out-alt" aria-hidden="true"> LOG OUT </i>
         </a>
       </li>
       
@@ -44,6 +44,7 @@
         function logout() {
           localStorage.removeItem('authToken');
           window.location.href = '{{ url('logout')}}';
+          alert('Anda telah berhasil logout!');
         }
       </script>
     </ul>

@@ -74,7 +74,7 @@
 
         var dataBarang
         $(document).ready(function() {
-            var dataUser = $('#table_user').DataTable({
+            dataBarang = $('#table_user').DataTable({
                 // serverSide: true, jika ingin menggunakan server side processing
                 serverSide: true,
                 ajax: {
