@@ -97,7 +97,7 @@ Route::group(['prefix' =>'kategori'],function(){
 });
 
 //level
-Route::group(['prefix' =>'level', 'middleware' => 'authorize:ADM'],function(){
+Route::group(['prefix' =>'level', 'middleware'=>'authorize:ADM,MNG'],function(){
     Route::get('/',[LevelController::class,'index']);
     Route::post('/list',[LevelController::class, 'list']);
     Route::get('/create',[LevelController::class,'create']);
