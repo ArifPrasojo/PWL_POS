@@ -6,7 +6,9 @@ use App\Http\Controllers\LevelController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WelcomeController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
 
+Route::pattern('id', '[0-9]+');
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -31,8 +33,13 @@ use Illuminate\Support\Facades\Route;
 // Route::put('/user/ubah_simpan/{id}', [UserController::class, 'ubah_simpan']);
 // Route::get('/user/hapus/{id}', [UserController::class, 'hapus']);
 
-Route::get('/', [WelcomeController::class, 'index']);
+Route::get('login', [AuthController::class, 'login'])->name('login');
+Route::post('login', [AuthController::class, 'postlogin']);
+Route::get('logout', [AuthController::class, 'logout'])->middleware('auth');
 
+Route::middleware(['auth'])->group(function() {
+    Route::get('/', [WelcomeController::class, 'index']);
+    
 //user
 Route::group(['prefix' => 'user'], function() {
     Route::get('/', [UserController::class, 'index']);          // menampilkan halaman awal user
@@ -126,4 +133,6 @@ Route::group(['prefix' =>'supplier'],function(){
     Route::get('/{id}/delete_ajax', [SupplierController::class, 'confirm_ajax']); // Untuk tampilkan form confirm delete supplier Ajax
     Route::delete('/{id}/delete_ajax', [SupplierController::class, 'delete_ajax']); // Untuk hapus data supplier Ajax
     Route::delete('/{id}',[SupplierController::class,'destroy']);
+});
+
 });
