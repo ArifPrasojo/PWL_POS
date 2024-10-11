@@ -39,7 +39,6 @@ Route::get('logout', [AuthController::class, 'logout'])->middleware('auth');
 
 Route::middleware(['auth'])->group(function() {
     Route::get('/', [WelcomeController::class, 'index']);
-    
 //user
 Route::group(['prefix' => 'user'], function() {
     Route::get('/', [UserController::class, 'index']);          // menampilkan halaman awal user

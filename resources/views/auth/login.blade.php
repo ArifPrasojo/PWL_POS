@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -15,82 +14,75 @@
     <link rel="stylesheet" href="{{ asset('adminlte/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css') }}">
     <!-- Theme style -->
     <link rel="stylesheet" href="{{ asset('adminlte/dist/css/adminlte.min.css') }}">
-
-    <!-- Custom Styles -->
     <style>
         body {
             font-family: 'Poppins', sans-serif;
-            background: linear-gradient(135deg, #667eea, #764ba2);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
         }
-
         .login-box {
-            width: 400px;
+            width: 360px;
+            margin: 0 auto;
         }
-
         .card {
             border-radius: 15px;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+            overflow: hidden;
         }
-
         .card-header {
-            border-top-left-radius: 15px;
-            border-top-right-radius: 15px;
-            background: #764ba2;
-            color: white;
+            background-color: #ffffff;
+            border-bottom: none;
+            padding: 25px 0 15px;
         }
-
+        .card-body {
+            padding: 30px;
+        }
         .login-box-msg {
+            color: #6c757d;
             font-weight: 500;
-            margin-bottom: 20px;
-            font-size: 18px;
+            margin-bottom: 25px;
         }
-
         .form-control {
-            border-radius: 30px;
+            border-radius: 25px;
+            padding: 10px 20px;
+            height: auto;
+            border: 1px solid #d1d3e2;
+            font-size: 14px;
         }
-
-        .btn-primary {
-            background-color: #667eea;
+        .input-group-text {
+            border-radius: 0 25px 25px 0;
             border: none;
-            border-radius: 30px;
+            background-color: #f8f9fc;
+        }
+        .btn-primary {
+            background-color: #4e73df;
+            border: none;
+            border-radius: 25px;
+            padding: 10px 20px;
+            font-weight: 600;
             transition: all 0.3s ease;
         }
-
         .btn-primary:hover {
-            background-color: #5764de;
-            transform: scale(1.05);
+            background-color: #2e59d9;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
         }
-
-        .input-group-text {
-            border-radius: 0 30px 30px 0;
+        .icheck-primary label {
+            font-size: 14px;
+            color: #6c757d;
         }
-
-        .icheck-primary input:checked+label::before {
-            background-color: #667eea;
-        }
-
-        .card-footer {
-            text-align: center;
-        }
-
-        .card-footer a {
-            color: #764ba2;
-        }
-
-        .toggle-password {
-            cursor: pointer;
+        .error-text {
+            font-size: 12px;
+            margin-top: 5px;
         }
     </style>
 </head>
-
 <body class="hold-transition login-page">
     <div class="login-box">
-        <!-- /.login-logo -->
-        <div class="card card-outline card-primary">
+        <div class="card">
             <div class="card-header text-center">
                 <a href="{{ url('/') }}" class="h1"><b>Admin</b>LTE</a>
             </div>
@@ -99,80 +91,53 @@
                 <form action="{{ url('login') }}" method="POST" id="form-login">
                     @csrf
                     <div class="input-group mb-3">
-                        <input type="text" id="username" name="username" class="form-control"
-                            placeholder="Username">
+                        <input type="text" id="username" name="username" class="form-control" placeholder="Username">
                         <div class="input-group-append">
                             <div class="input-group-text">
-                                <span class="fas fa-envelope"></span>
+                                <span class="fas fa-user"></span>
                             </div>
                         </div>
-                        <small id="error-username" class="error-text text-danger"></small>
                     </div>
+                    <small id="error-username" class="error-text text-danger"></small>
                     <div class="input-group mb-3">
-                        <input type="password" id="password" name="password" class="form-control"
-                            placeholder="Password">
+                        <input type="password" id="password" name="password" class="form-control" placeholder="Password">
                         <div class="input-group-append">
-                            <div class="input-group-text toggle-password">
-                                <span class="fas fa-eye" id="toggle-password-icon"></span>
+                            <div class="input-group-text">
+                                <span class="fas fa-lock"></span>
                             </div>
                         </div>
-                        <small id="error-password" class="error-text text-danger"></small>
                     </div>
-                    <div class="row">
+                    <small id="error-password" class="error-text text-danger"></small>
+                    <div class="row mt-4">
                         <div class="col-8">
                             <div class="icheck-primary">
-                                <input type="checkbox" id="remember"><label for="remember">Remember Me</label>
+                                <input type="checkbox" id="remember">
+                                <label for="remember">Remember Me</label>
                             </div>
                         </div>
-                        <!-- /.col -->
                         <div class="col-4">
-                            <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+                            <button type="submit" class="btn btn-primary btn-block">Login</button>
                         </div>
-                        <!-- /.col -->
                     </div>
                 </form>
             </div>
         </div>
-        <!-- /.card -->
     </div>
-    <!-- /.login-box -->
-    <!-- jQuery -->
+
+    <!-- Scripts -->
     <script src="{{ asset('adminlte/plugins/jquery/jquery.min.js') }}"></script>
-    <!-- Bootstrap 4 -->
     <script src="{{ asset('adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-    <!-- jquery-validation -->
     <script src="{{ asset('adminlte/plugins/jquery-validation/jquery.validate.min.js') }}"></script>
     <script src="{{ asset('adminlte/plugins/jquery-validation/additional-methods.min.js') }}"></script>
-    <!-- SweetAlert2 -->
     <script src="{{ asset('adminlte/plugins/sweetalert2/sweetalert2.min.js') }}"></script>
-    <!-- AdminLTE App -->
     <script src="{{ asset('adminlte/dist/js/adminlte.min.js') }}"></script>
-
-    <!-- Toggle Password Visibility -->
-    <script>
-        $(document).ready(function () {
-            $('.toggle-password').click(function () {
-                let passwordInput = $('#password');
-                let icon = $('#toggle-password-icon');
-                
-                if (passwordInput.attr('type') === 'password') {
-                    passwordInput.attr('type', 'text');
-                    icon.removeClass('fa-eye').addClass('fa-eye-slash');
-                } else {
-                    passwordInput.attr('type', 'password');
-                    icon.removeClass('fa-eye-slash').addClass('fa-eye');
-                }
-            });
-        });
-    </script>
-
     <script>
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
         });
-        $(document).ready(function () {
+        $(document).ready(function() {
             $("#form-login").validate({
                 rules: {
                     username: {
@@ -186,23 +151,23 @@
                         maxlength: 20
                     }
                 },
-                submitHandler: function (form) {
+                submitHandler: function(form) {
                     $.ajax({
                         url: form.action,
                         type: form.method,
                         data: $(form).serialize(),
-                        success: function (response) {
+                        success: function(response) {
                             if (response.status) {
                                 Swal.fire({
                                     icon: 'success',
                                     title: 'Berhasil',
                                     text: response.message,
-                                }).then(function () {
+                                }).then(function() {
                                     window.location = response.redirect;
                                 });
                             } else {
                                 $('.error-text').text('');
-                                $.each(response.msgField, function (prefix, val) {
+                                $.each(response.msgField, function(prefix, val) {
                                     $('#error-' + prefix).text(val[0]);
                                 });
                                 Swal.fire({
@@ -216,19 +181,18 @@
                     return false;
                 },
                 errorElement: 'span',
-                errorPlacement: function (error, element) {
+                errorPlacement: function(error, element) {
                     error.addClass('invalid-feedback');
                     element.closest('.input-group').append(error);
                 },
-                highlight: function (element, errorClass, validClass) {
+                highlight: function(element, errorClass, validClass) {
                     $(element).addClass('is-invalid');
                 },
-                unhighlight: function (element, errorClass, validClass) {
+                unhighlight: function(element, errorClass, validClass) {
                     $(element).removeClass('is-invalid');
                 }
             });
         });
     </script>
 </body>
-
 </html>
