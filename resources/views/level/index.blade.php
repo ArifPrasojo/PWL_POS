@@ -4,9 +4,10 @@
         <div class="card-header">
             <h3 class="card-title">Daftar Level</h3>
             <div class="card-tools">
-                <a href="{{url('/level/export_excel')}}" class="btn btn-info"></i> Export Kategori</a>
+                <a href="{{url('/level/export_excel')}}" class="btn btn-info"></i> Export Kategori Excel</a>
+                <a href="{{url('/level/export_pdf')}}" class="btn btn-info btn-warning"></i> Export Kategori PDF</a>
                 <button onclick="modalAction('{{ url('/level/import') }}')" class="btn btn-info">Import Level</button>
-                <button onclick="modalAction('{{ url('level/create_ajax') }}')" class="btn btn-success">Tambah</button>
+                <button onclick="modalAction('{{ url('level/create_ajax') }}')" class="btn btn-success">Tambah Level</button>
             </div>
         </div>
         <div class="card-body">

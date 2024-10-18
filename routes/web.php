@@ -60,6 +60,7 @@ Route::group(['prefix' => 'user', 'middleware'=>'authorize:ADM,MNG'], function()
     Route::get('/import', [UserController::class, 'import']); // ajax form upload excel
     Route::post('/import_ajax', [UserController::class, 'import_ajax']); // ajax import excel
     Route::get('/export_excel', [UserController::class, 'export_excel']); // export excel
+    Route::get('/export_pdf',[usercontroller::class,'export_pdf']); //ajax export pdf
 });
 
 //kategori
@@ -82,6 +83,7 @@ Route::group(['prefix' =>'kategori', 'middleware'=>'authorize:ADM,MNG'],function
     Route::get('/import', [KategoriController::class, 'import']); // ajax form upload excel
     Route::post('/import_ajax', [KategoriController::class, 'import_ajax']); // ajax import excel
     Route::get('/export_excel', [kategoriController::class, 'export_excel']); // export excel
+    Route::get('/export_pdf',[kategoricontroller::class,'export_pdf']); // ajax export pdf
     
 });
 
@@ -129,6 +131,7 @@ Route::group(['prefix' =>'level', 'middleware'=>'authorize:ADM,MNG'],function(){
     Route::get('/import', [LevelController::class, 'import']); // ajax form upload excel
     Route::post('/import_ajax', [LevelController::class, 'import_ajax']); // ajax import excel
     Route::get('/export_excel', [levelController::class, 'export_excel']); // export excel
+    Route::get('/export_pdf',[levelcontroller::class,'export_pdf']); //ajax export pdf
 });
 
 //supplier
@@ -151,6 +154,7 @@ Route::group(['prefix' =>'supplier', 'middleware'=>'authorize:ADM,MNG'],function
     Route::get('/import', [SupplierController::class, 'import']); // ajax form upload excel
     Route::post('/import_ajax', [SupplierController::class, 'import_ajax']); // ajax import excel
     Route::get('/export_excel', [SupplierController::class, 'export_excel']); // export excel
+    Route::get('/export_pdf',[suppliercontroller::class,'export_pdf']); //ajax export pdf
 });
 
 });
