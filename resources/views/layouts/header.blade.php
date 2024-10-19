@@ -1,51 +1,62 @@
 <nav class="main-header navbar navbar-expand navbar-white navbar-light">
-    <!-- Left navbar links -->
-    <ul class="navbar-nav">
+  <!-- Left navbar links -->
+  <ul class="navbar-nav">
       <li class="nav-item">
-        <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+          <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
+          <!-- Isi dengan link jika diperlukan -->
       </li>
       <li class="nav-item d-none d-sm-inline-block">
+          <!-- Isi dengan link jika diperlukan -->
       </li>
-    </ul>
+  </ul>
 
-    <!-- Right navbar links -->
-    <ul class="navbar-nav ml-auto">
-      <!-- Navbar Search -->
-      <li class="nav-item">
-        <a class="nav-link" data-widget="navbar-search" href="#" role="button">
-          <i class="fas fa-search"></i>
-        </a>
-        <div class="navbar-search-block">
-          <form class="form-inline">
-            <div class="input-group input-group-sm">
-              <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
-              <div class="input-group-append">
-                <button class="btn btn-navbar" type="submit">
-                  <i class="fas fa-search"></i>
-                </button>
-                <button class="btn btn-navbar" type="button" data-widget="navbar-search">
-                  <i class="fas fa-times"></i>
-                </button>
-              </div>
-            </div>
-          </form>
-        </div>
-      </li>
-
+  <!-- Right navbar links -->
+  <ul class="navbar-nav ml-auto">
+      <!-- User Profile -->
+      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+      <style>
+          .avatar { width: 40px; height: 40px; object-fit: cover; }
+          .dropdown-menu { min-width: 200px; }
+          .user-info { font-size: 0.9rem; }
+      </style>
       <li class="nav-item dropdown">
-        <a class="nav-link" href="#" onclick="logout()">
-          <i class="fa fa-sign-out-alt" aria-hidden="true"> LOG OUT </i>
-        </a>
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <img src="{{ asset('images/6858504.png') }}" class="avatar img-fluid rounded-circle" alt="Vanessa Tucker" style="width: 30px; height: 30px;"
+              alt="{{auth()->user()->nama}}" /> <span class="text-dark">
+                {{auth()->user()->nama}}
+              </span>
+          </a>
+          <div class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="navbarDropdown">
+            <div class="px-4 py-3">
+                <div class="d-flex align-items-center">
+                    <img src="{{ asset('images/6858504.png') }}" class="avatar rounded-circle me-3" alt="{{auth()->user()->nama}}">
+                    <div>
+                        <h6 class="mb-0">{{auth()->user()->nama}}</h6>
+                        <small class="text-muted"><strong>
+                            {{ auth()->user()->level->level_nama }}
+                        </strong>
+                        </small>
+                    </div>
+                </div>
+            </div>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item py-2" href="/profile.blade.php">
+                <i class="fas fa-user me-2"></i> Edit Profile
+            </a>
+            <a class="dropdown-item py-2" href="#" onclick="logout()">
+                <i class="fas fa-sign-out-alt me-2"></i> Log Out
+            </a>
+        </div>
+
+          <script>
+            function logout() {
+              localStorage.removeItem('authToken');
+              window.location.href = '{{ url('logout')}}';
+              alert('Anda telah berhasil logout!');
+            }
+          </script>
       </li>
-      
-      <script>
-        function logout() {
-          localStorage.removeItem('authToken');
-          window.location.href = '{{ url('logout')}}';
-          alert('Anda telah berhasil logout!');
-        }
-      </script>
-    </ul>
-  </nav>
+  </ul>
+</nav>

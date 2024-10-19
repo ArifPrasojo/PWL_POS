@@ -4,6 +4,7 @@ use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\BarangController;
 use App\Http\Controllers\LevelController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\UserProfilController;
 use App\Http\Controllers\WelcomeController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
@@ -39,10 +40,12 @@ Route::get('logout', [AuthController::class, 'logout'])->middleware('auth');
 Route::get('register', [AuthController::class, 'register']);
 Route::post('register', [AuthController::class, 'postRegister']);
 
+
 Route::middleware(['auth'])->group(function() {
     Route::get('/', [WelcomeController::class, 'index']);
+    // Route::resource('userprofile',[UserProfilController::class]);
 //user
-Route::group(['prefix' => 'user', 'middleware'=>'authorize:ADM,MNG'], function() {
+Route::group(['prefix' => 'user', 'middleware'=>'authorize:ADM,MNG,MHS'], function() {
     Route::get('/', [UserController::class, 'index']);          // menampilkan halaman awal user
     Route::post('/list', [UserController::class, 'list']);      // menampilkan data user dalam json untuk datables
     Route::get('/create', [UserController::class, 'create']);   // menampilkan halaman form tambah user
@@ -52,6 +55,7 @@ Route::group(['prefix' => 'user', 'middleware'=>'authorize:ADM,MNG'], function()
     Route::get('/{id}', [UserController::class, 'show']);       // menampilkan detail user
     Route::get('/{id}/edit', [UserController::class, 'edit']);  // menampilkan halaman form edit user
     Route::put('/{id}', [UserController::class, 'update']);     // menyimpan perubahan data user
+    Route::get('/{id}/show_ajax', [UserController::class, 'show_ajax']);
     Route::get('/{id}/edit_ajax', [UserController::class, 'edit_ajax']); // Menampilkan halaman form edit user Ajax
     Route::put('/{id}/update_ajax', [UserController::class, 'update_ajax']); // Menyimpan perubahan data user Ajax
     Route::get('/{id}/delete_ajax', [UserController::class, 'confirm_ajax']); // Untuk tampilkan form confirm delete user Ajax
@@ -64,7 +68,7 @@ Route::group(['prefix' => 'user', 'middleware'=>'authorize:ADM,MNG'], function()
 });
 
 //kategori
-Route::group(['prefix' =>'kategori', 'middleware'=>'authorize:ADM,MNG'],function(){
+Route::group(['prefix' =>'kategori', 'middleware'=>'authorize:ADM,MNG,MHS'],function(){
     Route::get('/',[KategoriController::class,'index']);
     Route::post('/list',[KategoriController::class, 'list']);
     Route::get('/create',[KategoriController::class,'create']);
@@ -89,7 +93,7 @@ Route::group(['prefix' =>'kategori', 'middleware'=>'authorize:ADM,MNG'],function
 
 //barang
 //route barang
-    Route::group(['prefix' =>'barang', 'middleware'=>'authorize:ADM,MNG'],function(){
+    Route::group(['prefix' =>'barang', 'middleware'=>'authorize:ADM,MNG,MHS'],function(){
     Route::get('/',[BarangController::class,'index']);
     Route::post('/list',[BarangController::class, 'list']);
     Route::get('/create',[BarangController::class,'create']);
@@ -112,7 +116,7 @@ Route::group(['prefix' =>'kategori', 'middleware'=>'authorize:ADM,MNG'],function
 });
 
 //level
-Route::group(['prefix' =>'level', 'middleware'=>'authorize:ADM,MNG'],function(){
+Route::group(['prefix' =>'level', 'middleware'=>'authorize:ADM,MNG,MHS'],function(){
     Route::get('/',[LevelController::class,'index']);
     Route::post('/list',[LevelController::class, 'list']);
     Route::get('/create',[LevelController::class,'create']);
@@ -135,7 +139,7 @@ Route::group(['prefix' =>'level', 'middleware'=>'authorize:ADM,MNG'],function(){
 });
 
 //supplier
-Route::group(['prefix' =>'supplier', 'middleware'=>'authorize:ADM,MNG'],function(){
+Route::group(['prefix' =>'supplier', 'middleware'=>'authorize:ADM,MNG,MHS'],function(){
     Route::get('/',[SupplierController::class,'index']);
     Route::post('/list',[SupplierController::class, 'list']);
     Route::get('/create',[SupplierController::class,'create']);
