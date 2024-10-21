@@ -45,6 +45,11 @@ Route::middleware(['auth'])->group(function() {
     Route::get('/', [WelcomeController::class, 'index']);
     Route::get('/profile', [ProfileController::class, 'index']);
     Route::post('upload_foto', [ProfileController::class, 'upload_foto'])->name('upload.foto');
+
+    Route::group(['prefix' => 'profile', 'middleware'=>'authorize:ADM,MNG,MHS'], function() {
+        Route::get('/profile', [ProfileController::class, 'index']);
+        Route::post('upload_foto', [ProfileController::class, 'upload_foto'])->name('upload.foto');
+    });
 //user
 Route::group(['prefix' => 'user', 'middleware'=>'authorize:ADM,MNG,MHS'], function() {
     Route::get('/', [UserController::class, 'index']);          // menampilkan halaman awal user
