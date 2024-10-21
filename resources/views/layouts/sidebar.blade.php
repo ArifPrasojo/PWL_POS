@@ -1,32 +1,3 @@
-<style>
-    .btn-logout {
-        background: linear-gradient(45deg, #ff0000, #ff0000);
-        border: none;
-        color: white;
-        padding: 10px 15px;
-        border-radius: 50px;
-        font-weight: bold;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-        transition: all 0.3s ease;
-        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-    }
-    
-    .btn-logout:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 6px 8px rgba(0,0,0,0.15);
-        background: linear-gradient(45deg, #ff0000, #fa0000);
-    }
-    
-    .btn-logout .icon {
-        margin-right: 8px;
-        transition: transform 0.3s ease;
-    }
-    
-    .btn-logout:hover .icon {
-        transform: rotate(180deg);
-    }
-    </style>
 <div class="sidebar">
     <!-- SidebarSearch Form -->
     <div class="form-inline mt-2">

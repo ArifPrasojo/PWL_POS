@@ -4,7 +4,7 @@ use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\BarangController;
 use App\Http\Controllers\LevelController;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\UserProfilController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\WelcomeController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
@@ -43,7 +43,8 @@ Route::post('register', [AuthController::class, 'postRegister']);
 
 Route::middleware(['auth'])->group(function() {
     Route::get('/', [WelcomeController::class, 'index']);
-    // Route::resource('userprofile',[UserProfilController::class]);
+    Route::get('/profile', [ProfileController::class, 'index']);
+    Route::post('upload_foto', [ProfileController::class, 'upload_foto'])->name('upload.foto');
 //user
 Route::group(['prefix' => 'user', 'middleware'=>'authorize:ADM,MNG,MHS'], function() {
     Route::get('/', [UserController::class, 'index']);          // menampilkan halaman awal user
