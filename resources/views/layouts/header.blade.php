@@ -30,6 +30,7 @@
           </a>
           <div class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="navbarDropdown">
             <div class="px-4 py-3">
+                {{-- profile Dropdown --}}
                 <div class="d-flex align-items-center">
                     <img src="{{ asset('storage/uploads/profile_pictures/'. auth()->user()->username .'/'.auth()->user()->username.'_profile.png') }}"  class="avatar rounded-circle me-3" alt="{{auth()->user()->nama}}">
                     <div>

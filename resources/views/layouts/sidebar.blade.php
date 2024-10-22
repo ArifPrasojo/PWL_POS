@@ -45,6 +45,12 @@
                     <p>Data Barang</p>
                 </a>
             </li>
+            <li class="nav-item">
+                <a href="{{ url('/stok') }}" class="nav-link {{ $activeMenu == 'stok' ? 'active' : '' }}">
+                    <i class="nav-icon fas fa-shopping-basket"></i>
+                    <p>Stok Barang</p>
+                </a>
+            </li>
 
             <li class="nav-header">Data Supplier</li>
             <li class="nav-item">
