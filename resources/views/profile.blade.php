@@ -1,132 +1,141 @@
 @extends('layouts.template')
 @section('content')
-<style>
-    .profile-container {
-        background-color: #f8f9fa;
-        border-radius: 15px;
-        box-shadow: 0 0 20px rgba(0,0,0,0.1);
-        overflow: hidden;
-        margin-top: 30px;
-    }
-    .profile-header {
-        background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
-        color: white;
-        padding: 30px 0;
-        text-align: center;
-    }
-    .profile-image-container {
-        margin-bottom: 20px;
-    }
-    .profile-user-img {
-        width: 150px;
-        height: 150px;
-        object-fit: cover;
-        border: 5px solid white;
-        box-shadow: 0 0 20px rgba(0,0,0,0.2);
-        transition: transform 0.3s ease;
-    }
-    .profile-user-img:hover {
-        transform: scale(1.05);
-    }
-    .profile-username {
-        font-size: 24px;
-        font-weight: bold;
-        margin-top: 10px;
-    }
-    .profile-role {
-        font-size: 16px;
-        opacity: 0.8;
-    }
-    .profile-body {
-        padding: 30px;
-    }
-    .list-group-item {
-        border: none;
-        padding: 15px 0;
-        border-bottom: 1px solid #e9ecef;
-    }
-    .list-group-item:last-child {
-        border-bottom: none;
-    }
-    .list-group-item b {
-        color: #6a11cb;
-    }
-    .btn-primary {
-        background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
-        border: none;
-        padding: 10px 20px;
-        transition: all 0.3s ease;
-    }
-    .btn-primary:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-    }
-    .ubah-foto-btn {
-        background-color: white;
-        color: #6a11cb;
-        border: 2px solid #6a11cb;
-        padding: 5px 15px;
-        transition: all 0.3s ease;
-    }
-    .ubah-foto-btn:hover {
-        background-color: #6a11cb;
-        color: white;
-    }
-</style>
-
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="profile-container">
-                <div class="profile-header">
-                    <div class="profile-image-container">
-                        <img class="profile-user-img img-fluid img-circle" 
-                            src="{{ asset('storage/uploads/profile_pictures/'. auth()->user()->username .'/'.auth()->user()->username.'_profile.'.['png', 'jpg', 'jpeg'][array_search(true, [
-                                file_exists(public_path('storage/uploads/profile_pictures/'.auth()->user()->username.'/'.auth()->user()->username.'_profile.png')),
-                                file_exists(public_path('storage/uploads/profile_pictures/'.auth()->user()->username.'/'.auth()->user()->username.'_profile.jpg')),
-                                file_exists(public_path('storage/uploads/profile_pictures/'.auth()->user()->username.'/'.auth()->user()->username.'_profile.jpeg'))
-                            ])]) }}"
-                        alt="User profile picture">
-                    </div>
-                    <h3 class="profile-username">{{ auth()->user()->nama }}</h3>
-                    <p class="profile-role">{{ auth()->user()->level->level_nama }}</p>
-                </div>
-                
-                <div class="profile-body">
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item">
-                            <b>Username</b> <span class="float-right">{{ auth()->user()->username }}</span>
-                        </li>
-                        <li class="list-group-item">
-                            <b>Nama</b> <span class="float-right">{{ auth()->user()->nama }}</span>
-                        </li>
-                        <li class="list-group-item">
-                            <b>Tingkat Level</b> <span class="float-right">{{ auth()->user()->level->level_nama }}</span>
-                        </li>
-                    </ul>
-                    
-                    <form action="{{ route('upload.foto') }}" method="POST" enctype="multipart/form-data" class="mt-4">
-                        @csrf
-                        <div class="custom-file mb-3">
-                            <input type="file" class="custom-file-input" id="upload_foto" name="foto" accept="image/*">
-                            <label class="custom-file-label" for="upload_foto">Choose file</label>
+    <div class="container-fluid py-4">
+        <div class="row justify-content-center">
+            <div class="col-lg-3">
+                <div class="card shadow border-0 rounded-lg mb-4 hover-shadow">
+                    <div class="card-body text-center p-4">
+                        <div class="position-relative d-inline-block mb-3">
+                            @if ($user->profile_image)
+                                <img src="{{ asset('storage/photos/' . $user->profile_image) }}"
+                                    class="img-fluid rounded-circle shadow mb-3"
+                                    style="width: 150px; height: 150px; object-fit: cover; border: 4px solid #ffffff; box-shadow: 0 0 20px rgba(0,0,0,0.1);">
+                            @else
+                                <img src="{{ asset('/public/img/polinema-bw.png') }}"
+                                    class="img-fluid rounded-circle shadow mb-3"
+                                    style="width: 150px; height: 150px; object-fit: cover; border: 4px solid #ffffff; box-shadow: 0 0 20px rgba(0,0,0,0.1);">
+                            @endif
                         </div>
-                        <button type="submit" class="btn ubah-foto-btn">Ubah Foto</button>
-                    </form>
+                        <h4 class="fw-bold mb-1">{{ $user->nama }}</h4>
+                        <p class="text-muted mb-0">
+                            <i class="fas fa-user-circle me-1"></i>
+                            {{ $user->username }}
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-7">
+                <div class="card shadow border-0 rounded-lg">
+                    <div class="card-header bg-gradient-primary text-white py-4">
+                        <h4 class="mb-0 text-center">
+                            <i class="fas fa-user-edit me-2"></i>
+                            <b>Edit Profil</b>
+                        </h4>
+                    </div>
+                    <div class="card-body p-5">
+                        @if (session('status'))
+                            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                <i class="fas fa-check-circle me-2"></i>
+                                {{ session('status') }}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                    aria-label="Close"></button>
+                            </div>
+                        @endif
 
-                    <a href="{{ url('/') }}" class="btn btn-primary btn-block mt-4"><b>Kembali</b></a>
+                        <form method="POST" action="{{ route('profile.update', $user->user_id) }}"
+                            enctype="multipart/form-data">
+                            @method('PATCH')
+                            @csrf
+                            
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="username" class="form-label fw-bold">
+                                        <i class="fas fa-at me-1"></i>
+                                        {{ __('Username') }}
+                                    </label>
+                                    <input id="username" type="text"
+                                        class="form-control form-control-lg shadow-sm @error('username') is-invalid @enderror"
+                                        name="username" value="{{ $user->username }}" required
+                                        autocomplete="username" placeholder="Enter your username">
+                                    @error('username')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <label for="nama" class="form-label fw-bold">
+                                        <i class="fas fa-user me-1"></i>
+                                        {{ __('Nama Lengkap') }}
+                                    </label>
+                                    <input id="nama" type="text"
+                                        class="form-control form-control-lg shadow-sm @error('nama') is-invalid @enderror"
+                                        name="nama" value="{{ old('nama', $user->nama) }}" required
+                                        autocomplete="nama" placeholder="Enter your full name">
+                                    @error('nama')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <div class="row mt-4">
+                                <div class="col-12">
+                                    <h5 class="mb-3 text-muted">
+                                        <i class="fas fa-lock me-1"></i>
+                                        Ubah Password
+                                    </h5>
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <label for="password" class="form-label fw-bold">
+                                        <i class="fas fa-lock me-1"></i>
+                                        {{ __('Password Baru') }}
+                                    </label>
+                                    <input id="password" type="password"
+                                        class="form-control form-control-lg shadow-sm @error('password') is-invalid @enderror"
+                                        name="password" autocomplete="new-password"
+                                        placeholder="Masukkan password baru">
+                                    @error('password')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <div class="row mt-4">
+                                <div class="col-12 mb-3">
+                                    <label for="profile_image" class="form-label fw-bold">
+                                        <i class="fas fa-image me-1"></i>
+                                        {{ __('Foto Profil') }}
+                                    </label>
+                                    <input id="profile_image" type="file" 
+                                        class="form-control form-control-lg shadow-sm"
+                                        name="profile_image">
+                                    <div class="form-text">
+                                        <i class="fas fa-info-circle me-1"></i>
+                                        Upload foto dengan format JPG, PNG, atau GIF (max. 2MB)
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="text-end mt-4">
+                                <button type="button" class="btn btn-light btn-lg me-2">
+                                    <i class="fas fa-times me-1"></i>
+                                    {{ __('Batal') }}
+                                </button>
+                                <button type="submit" class="btn btn-primary btn-lg px-4">
+                                    <i class="fas fa-save me-1"></i>
+                                    {{ __('Simpan Perubahan') }}
+                                </button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
-
-<script>
-    // Update label on file selection
-    document.querySelector('.custom-file-input').addEventListener('change', function (e) {
-        var fileName = e.target.files[0].name;
-        var nextSibling = e.target.nextElementSibling;
-        nextSibling.innerText = fileName;
-    });
-</script>
 @endsection

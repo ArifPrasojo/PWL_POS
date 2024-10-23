@@ -44,13 +44,7 @@ Route::post('register', [AuthController::class, 'postRegister']);
 
 Route::middleware(['auth'])->group(function() {
     Route::get('/', [WelcomeController::class, 'index']);
-    Route::get('/profile', [ProfileController::class, 'index']);
-    Route::post('upload_foto', [ProfileController::class, 'upload_foto'])->name('upload.foto');
 
-    Route::group(['prefix' => 'profile', 'middleware'=>'authorize:ADM,MNG,MHS'], function() {
-        Route::get('/profile', [ProfileController::class, 'index']);
-        Route::post('upload_foto', [ProfileController::class, 'upload_foto'])->name('upload.foto');
-    });
 //user
 Route::group(['prefix' => 'user', 'middleware'=>'authorize:ADM,MNG,MHS'], function() {
     Route::get('/', [UserController::class, 'index']);          // menampilkan halaman awal user
@@ -98,7 +92,6 @@ Route::group(['prefix' =>'kategori', 'middleware'=>'authorize:ADM,MNG,MHS'],func
     
 });
 
-//barang
 //route barang
     Route::group(['prefix' =>'barang', 'middleware'=>'authorize:ADM,MNG,MHS'],function(){
     Route::get('/',[BarangController::class,'index']);
@@ -185,4 +178,8 @@ Route::group(['prefix' =>'stok', 'middleware'=>'authorize:ADM'],function() {
     Route::get('/export_pdf', [StokController::class, 'export_pdf']);
 });
 
+Route::group(['prefix' =>'profile'],function(){
+    Route::get('/', [ProfileController::class, 'index'])->name('profile.index');
+    Route::patch('/{id}', [ProfileController::class, 'update'])->name('profile.update');
+});
 });

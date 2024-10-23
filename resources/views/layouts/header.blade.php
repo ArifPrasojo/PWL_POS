@@ -23,7 +23,7 @@
       </style>
       <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              <img src="{{ asset('storage/uploads/profile_pictures/'. auth()->user()->username .'/'.auth()->user()->username.'_profile.png') }}" class="avatar img-fluid rounded-circle" style="width: 30px; height: 30px;"
+              <img src="{{ asset('storage/photos/' . auth()->user()->profile_image) }}" class="avatar img-fluid rounded-circle" style="width: 30px; height: 30px;"
               alt="{{auth()->user()->username}}" /> <span class="text-dark">
                 {{auth()->user()->username}}
               </span>
@@ -32,7 +32,7 @@
             <div class="px-4 py-3">
                 {{-- profile Dropdown --}}
                 <div class="d-flex align-items-center">
-                    <img src="{{ asset('storage/uploads/profile_pictures/'. auth()->user()->username .'/'.auth()->user()->username.'_profile.png') }}"  class="avatar rounded-circle me-3" alt="{{auth()->user()->nama}}">
+                    <img src="{{ asset('storage/photos/' . auth()->user()->profile_image) }}"  class="avatar rounded-circle me-3" alt="{{auth()->user()->nama}}">
                     <div>
                         <h6 class="mb-0">{{auth()->user()->username}}</h6>
                         <small class="text-muted"><strong>
