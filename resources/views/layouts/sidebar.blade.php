@@ -59,6 +59,13 @@
                     <p>Supplier</p>
                 </a>
             </li>
+            <li class="nav-header dropdown">Data Penjualan</li>
+            <li class="nav-item">
+                <a href="{{ url('/penjualan') }}" class="nav-link {{ $activeMenu == 'penjualan' ? 'active' : '' }} ">
+                    <i class="nav-icon fa fa-balance-scale" aria-hidden="true"></i>
+                    <p>Penjualan</p>
+                </a>
+            </li>
         </ul>
     </nav>
   </div>

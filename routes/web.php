@@ -9,6 +9,8 @@ use App\Http\Controllers\WelcomeController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\StokController;
+use App\Http\Controllers\PenjualanController;
+use App\Http\Controllers\DetailPenjualanController;
 
 Route::pattern('id', '[0-9]+');
 /*
@@ -182,4 +184,22 @@ Route::group(['prefix' =>'profile'],function(){
     Route::get('/', [ProfileController::class, 'index'])->name('profile.index');
     Route::patch('/{id}', [ProfileController::class, 'update'])->name('profile.update');
 });
+//Penjualan
+Route::group(['prefix' =>'penjualan'],function(){
+    Route::get('/', [PenjualanController::class, 'index']);
+    Route::post('/list', [PenjualanController::class, 'list']);
+    Route::get('/create_ajax', [PenjualanController::class, 'create_ajax']);
+    Route::post('/ajax', [PenjualanController::class, 'store_ajax']);
+    Route::get('/{id}/show_ajax', [PenjualanController::class, 'show_ajax']);
+    Route::get('/{id}/edit_ajax', [PenjualanController::class, 'edit_ajax']);
+    Route::put('/{id}/update_ajax', [PenjualanController::class, 'update_ajax']);
+    Route::get('/{id}/delete_ajax', [PenjualanController::class, 'confirm_ajax']);
+    Route::delete('/{id}/delete_ajax', [PenjualanController::class, 'delete_ajax']);
+    Route::delete('/{id}', [PenjualanController::class, 'destroy']);
+    Route::get('/import', [PenjualanController::class, 'import']); // ajax form upload excel
+    Route::post('/import_ajax', [PenjualanController::class, 'import_ajax']); // ajax import excel
+    Route::get('/export_excel', [PenjualanController::class, 'export_excel']); // ajax import excel
+    Route::get('/export_pdf', [PenjualanController::class, 'export_pdf']); // ajax export pdf   
+});
+
 });

@@ -19,7 +19,8 @@
                         <h4 class="fw-bold mb-1">{{ $user->nama }}</h4>
                         <p class="text-muted mb-0">
                             <i class="fas fa-user-circle me-1"></i>
-                            {{ $user->username }}
+                            {{ $user->username }} <br>
+                            <strong>{{ auth()->user()->level->level_nama }}</strong>
                         </p>
                     </div>
                 </div>
