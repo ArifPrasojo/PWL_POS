@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Tymon\JWTAuth\Contracts\JWTSubject;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 
 class UserModel extends Authenticatable implements JWTSubject
 {
@@ -26,7 +27,16 @@ class UserModel extends Authenticatable implements JWTSubject
 
     use HasFactory;
 
-    protected $fillable = ['level_id', 'profile_image', 'username', 'nama', 'password'];
+    protected $fillable     = [
+        'level_id',
+        'username', 
+        'nama', 
+        'password', 
+        'created_at', 
+        'updated_at', 
+        'profile_picture',
+        'image' //menambahkan kolom image sebagai fillable
+    ];
 
     protected $hidden = ['password'];
     
@@ -49,6 +59,13 @@ class UserModel extends Authenticatable implements JWTSubject
     }
     public function penjualans() : HasMany {
         return $this->hasMany(PenjualanModel::class, 'penjualan_id', 'penjualan_id');
+    }
+
+    public function image():Attribute 
+    {
+        return Attribute::make(
+            get: fn ($image) => url('/storage/posts/' . $image),
+        );
     }
 
 }
